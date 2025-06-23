@@ -107,7 +107,7 @@ class PacketSessionData(ctypes.LittleEndianStructure):
     The session packet includes details about the current session in progress.
 
     Frequency: 2 per second
-    Size: 765 bytes
+    Size: 753 bytes
     """
     _pack_ = 1
     _fields_ = [
@@ -118,10 +118,7 @@ class PacketSessionData(ctypes.LittleEndianStructure):
         ('m_airTemperature', ctypes.c_int8),                       # Air temp. in degrees celsius
         ('m_totalLaps', ctypes.c_uint8),                           # Total number of laps in this race
         ('m_trackLength', ctypes.c_uint16),                        # Track length in metres
-        ('m_sessionType', ctypes.c_uint8),                         # 0 = unknown, 1 = P1, 2 = P2, 3 = P3, 4 = Short P,  5 = Q1, 6 = Q2
-                                                                   # 7 = Q3, 8 = Short Q, 9 = OSQ, 10 = Sprint Shootout 1, 11 = Sprint Shootout 2,
-                                                                   # 12 = Sprint Shootout 3, 13 = Shot Sprint Shootout, 14 = One-Shot Sprint Shootout,
-                                                                   # 15 = R, 16 = R2, 17 = R3, 18 = Time Trial
+        ('m_sessionType', ctypes.c_uint8),                         # 0 = unknown, see appendix
         ('m_trackId', ctypes.c_int8),                              # -1 for unknown, 0-21 for tracks, see appendix
         ('m_formula', ctypes.c_uint8),                             # Formula, 0 = F1 Modern, 1 = F1 Classic, 2 = F2, 3 = F1 Generic
                                                                    # 4 = Beta, 6 = Esports, 8 = F1 World, 9 = F1 Elimination
@@ -141,9 +138,9 @@ class PacketSessionData(ctypes.LittleEndianStructure):
         ('m_weatherForecastSamples', WeatherForecastSample * 64),  # Array of weather forecast samples
         ('m_forecastAccuracy', ctypes.c_uint8),                    # 0 = perfect, 1 = approximate
         ('m_aiDifficulty', ctypes.c_uint8),                        # AI difficulty, 0-110
-        ('m_seasonLinkIdentifier', ctypes.c_uint64),               # Identifier for the season, persists across saves
-        ('m_weekendLinkIdentifier', ctypes.c_uint64),              # Identifier for the weekend
-        ('m_sessionLinkIdentifier', ctypes.c_uint64),              # Identifier for the session, persists across saves
+        ('m_seasonLinkIdentifier', ctypes.c_uint32),               # Identifier for the season, persists across saves
+        ('m_weekendLinkIdentifier', ctypes.c_uint32),              # Identifier for the weekend
+        ('m_sessionLinkIdentifier', ctypes.c_uint32),              # Identifier for the session, persists across saves
         ('m_pitStopWindowIdealLap', ctypes.c_uint8),               # Ideal lap for pit stop window
         ('m_pitStopWindowLatestLap', ctypes.c_uint8),              # Latest lap for pit stop window
         ('m_pitStopRejoinPosition', ctypes.c_uint8),               # Position the car will rejoin at if pitting at the end of the pit stop window
