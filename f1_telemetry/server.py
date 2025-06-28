@@ -52,5 +52,9 @@ def get_telemetry():
         elif int(m_header.m_packetId) == 7:
             packet = PacketCarStatusData.from_buffer_copy(data[0:1239])
             theader = int(m_header.m_packetId)
+        
+        elif int(m_header.m_packetId) == 10:
+            packet = PacketCarDamageData.from_buffer_copy(data[0:953])
+            theader = int(m_header.m_packetId)
 
         yield packet, theader, m_header, player

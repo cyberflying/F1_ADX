@@ -287,11 +287,9 @@ class PacketEventData(ctypes.LittleEndianStructure):
 
 class ParticipantData(ctypes.LittleEndianStructure):
     """
-    This is a list of participants in the race. If the vehicle is controlled by AI, then the name will be the driver
-    name. If this is a multiplayer game, the names will be the Steam Id on PC, or the LAN name if appropriate.
-    On Xbox One, the names will always be the driver name, on PS4 the name will be the LAN name if playing a LAN game,
-    otherwise it will be the driver name.
-
+    This is a list of participants in the race. 
+    If the vehicle is controlled by AI, then the name will be the driver name.
+    If this is a multiplayer game, the names will be the Steam Id on PC, or the LAN name if appropriate.
     Frequency: Every 5 seconds
     """
     _pack_ = 1
@@ -314,7 +312,7 @@ class ParticipantData(ctypes.LittleEndianStructure):
 
 class PacketParticipantsData(ctypes.LittleEndianStructure):
     """
-    Ctypes data structure for participants data
+    Frequency: Every 5 seconds
     Size: 1350 bytes
     """
     _pack_ = 1
@@ -379,8 +377,8 @@ class CarTelemetryData(ctypes.LittleEndianStructure):
     """
     This packet details telemetry for all the cars in the race. It details various values that would be recorded on the
     car such as speed, throttle application, DRS etc.
-
     Frequency: Rate as specified in menus
+    Size: 1352 byte
     """
     _pack_ = 1
     _fields_ = [
@@ -422,12 +420,10 @@ class PacketCarTelemetryData(ctypes.LittleEndianStructure):
 class CarStatusData(ctypes.LittleEndianStructure):
     """
     This packet details car statuses for all the cars in the race.
-    Frequency: Rate as specified in menus
-    Size: 1239 bytes
     """
     _pack_ = 1
     _fields_ = [
-        ('m_tractionControl', ctypes.c_uint8),          # 0 (off) - 2 (high)
+        ('m_tractionControl', ctypes.c_uint8),          # Traction control - 0 = off, 1 = medium, 2 = full
         ('m_antiLockBrakes', ctypes.c_uint8),           # 0 (off) - 1 (on)
         ('m_fuelMix', ctypes.c_uint8),                  # Fuel mix - 0 = lean, 1 = standard, 2 = rich, 3 = max
         ('m_frontBrakeBias', ctypes.c_uint8),           # Front brake bias (percentage)
@@ -435,10 +431,10 @@ class CarStatusData(ctypes.LittleEndianStructure):
         ('m_fuelInTank', ctypes.c_float),               # Current fuel mass
         ('m_fuelCapacity', ctypes.c_float),             # Fuel capacity
         ('m_fuelRemainingLaps', ctypes.c_float),        # Fuel remaining in terms of laps (value on MFD)
-        ('m_maxRPM', ctypes.c_uint16),                    # Cars max RPM, point of rev limiter
-        ('m_idleRPM', ctypes.c_uint16),                   # Cars idle RPM
+        ('m_maxRPM', ctypes.c_uint16),                  # Cars max RPM, point of rev limiter
+        ('m_idleRPM', ctypes.c_uint16),                 # Cars idle RPM
         ('m_maxGears', ctypes.c_uint8),                 # Maximum number of gears
-        ('m_drsAllowed', ctypes.c_uint8),               # 0 = not allowed, 1 = allowed, -1 = unknown
+        ('m_drsAllowed', ctypes.c_uint8),               # 0 = not allowed, 1 = allowed
         ('m_drsActivationDistance', ctypes.c_uint16),   # 0 = DRS not available, non-zero - DRS will be available
         ('m_actualTyreCompound', ctypes.c_uint8),       # F1 Modern - 16 = C5, 17 = C4, 18 = C3, 19 = C2, 20 = C1
    					                                    # 21 = C0, 7 = inter, 8 = wet
@@ -467,7 +463,6 @@ class CarStatusData(ctypes.LittleEndianStructure):
 
 class PacketCarStatusData(ctypes.LittleEndianStructure):
     """
-    Ctypes data structure for cars status data
     Frequency: Rate as specified in menus
     Size: 1239 bytes
     """
@@ -475,4 +470,128 @@ class PacketCarStatusData(ctypes.LittleEndianStructure):
     _fields_ = [
         ('m_header', Header),                              # Header
         ('m_carStatusData', CarStatusData * 22)
+    ]
+
+
+class CarDamageData(ctypes.LittleEndianStructure):
+    """
+    This packet details car damage parameters for all the cars in the race.
+    """
+    _pack_ = 1
+    _fields_ = [
+        ('m_tyresWear',               ctypes.c_float * 4),     # Tyre wear (percentage)
+        ('m_tyresDamage',             ctypes.c_uint8 * 4),     # Tyre damage (percentage)
+        ('m_brakesDamage',            ctypes.c_uint8 * 4),     # Brakes damage (percentage)
+        ('m_frontLeftWingDamage',     ctypes.c_uint8),         # Front left wing damage (percentage)
+        ('m_frontRightWingDamage',    ctypes.c_uint8),         # Front right wing damage (percentage)
+        ('m_rearWingDamage',          ctypes.c_uint8),         # Rear wing damage (percentage)
+        ('m_floorDamage',             ctypes.c_uint8),         # Floor damage (percentage)
+        ('m_diffuserDamage',          ctypes.c_uint8),         # Diffuser damage (percentage)
+        ('m_sidepodDamage',           ctypes.c_uint8),         # Sidepod damage (percentage)
+        ('m_drsFault',                ctypes.c_uint8),         # Indicator for DRS fault, 0 = OK, 1 = fault
+        ('m_ersFault',                ctypes.c_uint8),         # Indicator for ERS fault, 0 = OK, 1 = fault
+        ('m_gearBoxDamage',           ctypes.c_uint8),         # Gear box damage (percentage)
+        ('m_engineDamage',            ctypes.c_uint8),         # Engine damage (percentage)
+        ('m_engineMGUHWear',          ctypes.c_uint8),         # Engine wear MGU-H (percentage)
+        ('m_engineESWear',            ctypes.c_uint8),         # Engine wear ES (percentage)
+        ('m_engineCEWear',            ctypes.c_uint8),         # Engine wear CE (percentage)
+        ('m_engineICEWear',           ctypes.c_uint8),         # Engine wear ICE (percentage)
+        ('m_engineMGUKWear',          ctypes.c_uint8),         # Engine wear MGU-K (percentage)
+        ('m_engineTCWear',            ctypes.c_uint8),         # Engine wear TC (percentage)
+        ('m_engineBlown',             ctypes.c_uint8),         # Engine blown, 0 = OK, 1 = fault
+        ('m_engineSeized',            ctypes.c_uint8),         # Engine seized, 0 = OK, 1 = fault
+    ]
+
+
+class PacketCarDamageData(ctypes.LittleEndianStructure):
+    """
+    This packet details car damage parameters for all the cars in the race.
+    Frequency: 10 per second
+    Size: 953 bytes
+    """
+    _pack_ = 1
+    _fields_ = [
+        ('m_header', Header),                           # Header
+        ('m_carDamageData', CarDamageData * 22)
+    ]
+
+
+class LapHistoryData(ctypes.LittleEndianStructure):
+    """
+    This packet contains lap times and tyre usage for the session
+    """
+    _pack_ = 1
+    _fields_ = [
+        ('m_lapTimeInMS',                ctypes.c_uint32),       # Lap time in milliseconds
+        ('m_sector1TimeMSPart',          ctypes.c_uint16),       # Sector 1 milliseconds part
+        ('m_sector1TimeMinutesPart',     ctypes.c_uint8),        # Sector 1 whole minute part
+        ('m_sector2TimeMSPart',          ctypes.c_uint16),       # Sector 2 time milliseconds part
+        ('m_sector2TimeMinutesPart',     ctypes.c_uint8),        # Sector 2 whole minute part
+        ('m_sector3TimeMSPart',          ctypes.c_uint16),       # Sector 3 time milliseconds part
+        ('m_sector3TimeMinutesPart',     ctypes.c_uint8),        # Sector 3 whole minute part
+        ('m_lapValidBitFlags',           ctypes.c_uint8),        # 0x01 bit set-lap valid,      0x02 bit set-sector 1 valid
+                                                                 # 0x04 bit set-sector 2 valid, 0x08 bit set-sector 3 valid
+    ]
+
+class TyreStintHistoryData(ctypes.LittleEndianStructure):
+    """
+    This packet contains lap times and tyre usage for the session
+    """
+    _pack_ = 1
+    _fields_ = [
+        ('m_endLap',                    ctypes.c_uint8),        # Lap the tyre usage ends on (255 of current tyre)
+        ('m_tyreActualCompound',        ctypes.c_uint8),        # Actual tyres used by this driver
+        ('m_tyreVisualCompound',        ctypes.c_uint8),        # Visual tyres used by this driver
+    ]
+
+class PacketSessionHistoryData(ctypes.LittleEndianStructure):
+    """
+    This packet contains lap times and tyre usage for the session. 
+    Frequency: 20 per second but cycling through cars
+    Size: 1460 bytes
+    """
+    _pack_ = 1
+    _fields_ = [
+        ('m_header', Header),                                   # Header
+        ('m_carIdx',                    ctypes.c_uint8),        # Index of the car this lap data relates to
+        ('m_numLaps',                   ctypes.c_uint8),        # Num laps in the data (including current partial lap)
+        ('m_numTyreStints',             ctypes.c_uint8),        # Number of tyre stints in the data
+        ('m_bestLapTimeLapNum',         ctypes.c_uint8),        # Lap the best lap time was achieved on
+        ('m_bestSector1LapNum',         ctypes.c_uint8),        # Lap the best Sector 1 time was achieved on
+        ('m_bestSector2LapNum',         ctypes.c_uint8),        # Lap the best Sector 2 time was achieved on
+        ('m_bestSector3LapNum',         ctypes.c_uint8),        # Lap the best Sector 3 time was achieved on
+        ('m_lapHistoryData',	        LapHistoryData * 100),  # 100 laps of data max
+        ('m_tyreStintsHistoryData',     TyreStintHistoryData * 8)
+    ]
+
+
+class TyreSetData(ctypes.LittleEndianStructure):
+    """
+    This packet contains lap times and tyre usage for the session
+    """
+    _pack_ = 1
+    _fields_ = [
+        ('m_actualTyreCompound',        ctypes.c_uint8),        # Actual tyre compound used
+        ('m_visualTyreCompound',        ctypes.c_uint8),        # Visual tyre compound used
+        ('m_wear',                      ctypes.c_uint8),        # Tyre wear (percentage)
+        ('m_available',                 ctypes.c_uint8),        # Whether this set is currently available
+        ('m_recommendedSession',        ctypes.c_uint8),        # Recommended session for tyre set, see appendix
+        ('m_lifeSpan',                  ctypes.c_uint8),        # Laps left in this tyre set
+        ('m_usableLife',                ctypes.c_uint8),        # Max number of laps recommended for this compound
+        ('m_lapDeltaTime',              ctypes.c_int16),        # Lap delta time in milliseconds compared to fitted set
+        ('m_fitted',                    ctypes.c_uint8),        # Whether the set is fitted or not
+    ]
+
+class PacketTyreSetsData(ctypes.LittleEndianStructure):
+    """
+    This packets gives a more in-depth details about tyre sets assigned to a vehicle during the session.
+    Frequency: 20 per second but cycling through cars
+    Size: 231 bytes
+    """
+    _pack_ = 1
+    _fields_ = [
+        ('m_header', Header),                                   # Header
+        ('m_carIdx',                    ctypes.c_uint8),        # Index of the car this lap data relates to
+        ('m_tyreSetData',	            TyreSetData * 20),      # 13 (dry) + 7 (wet)
+        ('m_fittedIdx',                 ctypes.c_uint8)         # Index into array of fitted tyre
     ]
