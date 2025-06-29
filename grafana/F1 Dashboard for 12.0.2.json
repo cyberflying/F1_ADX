@@ -3349,40 +3349,11 @@
           },
           "hide": false,
           "pluginVersion": "4.4.1",
-          "query": "CarTelemetry24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex\n| order by Timestamp\n| project Gear, Clutch, Timestamp\n",
+          "query": "CarTelemetry24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex\n| order by Timestamp\n| project Timestamp, Gear, Clutch\n",
           "querySource": "raw",
           "queryType": "KQL",
           "rawMode": true,
-          "refId": "Gear",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project Clutch  , Timestamp\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "Clutch",
+          "refId": "Gear & Clutch",
           "resultFormat": "time_series"
         }
       ],
@@ -3608,36 +3579,7 @@
           "querySource": "raw",
           "queryType": "KQL",
           "rawMode": true,
-          "refId": "B",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project Timestamp, Brake\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "A",
+          "refId": "Throttle & Brake",
           "resultFormat": "time_series"
         }
       ],
@@ -4275,98 +4217,11 @@
           },
           "hide": false,
           "pluginVersion": "4.4.1",
-          "query": "CarTelemetry24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp\n| project FLTyrePressure,Timestamp\n",
+          "query": "CarTelemetry24\n| where $__timeFilter(Timestamp) and PlayerCarIndex == VehicleIndex\n| order by Timestamp\n| project Timestamp, FLTyrePressure, FRTyrePressure, RLTyrePressure, RRTyrePressure\n",
           "querySource": "raw",
           "queryType": "KQL",
           "rawMode": true,
-          "refId": "FL",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project FRTyrePressure, Timestamp\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "FR",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project RLTyrePressure, Timestamp\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "RL",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project RRTyrePressure, Timestamp\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "RR",
+          "refId": "Tyre Pressure",
           "resultFormat": "time_series"
         }
       ],
@@ -4477,98 +4332,11 @@
           },
           "hide": false,
           "pluginVersion": "4.4.1",
-          "query": "CarTelemetry24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp\n| project FLTyreSurfaceTemp, Timestamp\n",
+          "query": "CarTelemetry24\n| where $__timeFilter(Timestamp) and PlayerCarIndex == VehicleIndex \n| order by Timestamp\n| project Timestamp, FLTyreSurfaceTemp, FRTyreSurfaceTemp, RLTyreSurfaceTemp, RRTyreSurfaceTemp\n",
           "querySource": "raw",
           "queryType": "KQL",
           "rawMode": true,
-          "refId": "FL",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project FRTyreSurfaceTemp,Timestamp\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "FR",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project RLTyreSurfaceTemp,Timestamp\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "RL",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarTelemetry\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project RRTyreSurfaceTemp,Timestamp\n",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "RR",
+          "refId": "Tyre Surface Temp",
           "resultFormat": "time_series"
         }
       ],
@@ -4679,98 +4447,11 @@
           },
           "hide": false,
           "pluginVersion": "4.4.1",
-          "query": "CarDamage24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp\n| project Timestamp, FLTyreWear",
+          "query": "CarDamage24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp\n| project Timestamp, FLTyreWear, FRTyreWear, RLTyreWear, RRTyreWear",
           "querySource": "raw",
           "queryType": "KQL",
           "rawMode": true,
-          "refId": "FL",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarStatus24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project Timestamp  , FRTyreWear",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "FR",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarStatus24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project Timestamp  , RLTyreWear ",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "RL",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarStatus24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project Timestamp  , RRTyreWear ",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "RR",
+          "refId": "Tyre Wear",
           "resultFormat": "time_series"
         }
       ],
@@ -4881,98 +4562,11 @@
           },
           "hide": false,
           "pluginVersion": "4.4.1",
-          "query": "CarDamage24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp\n| project Timestamp, FLTyreDamage ",
+          "query": "CarDamage24\n| where $__timeFilter(Timestamp) and PlayerCarIndex == VehicleIndex \n| order by Timestamp\n| project Timestamp, FLTyreDamage, FRTyreDamage, RLTyreDamage, RRTyreDamage",
           "querySource": "raw",
           "queryType": "KQL",
           "rawMode": true,
-          "refId": "A",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarStatus24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project Timestamp,FRTyreDamage ",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "B",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarStatus24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc \n| project Timestamp,RLTyreDamage ",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "C",
-          "resultFormat": "time_series"
-        },
-        {
-          "database": "f1",
-          "datasource": {
-            "type": "grafana-azure-data-explorer-datasource",
-            "uid": "fc6AYuunk"
-          },
-          "expression": {
-            "groupBy": {
-              "expressions": [],
-              "type": "and"
-            },
-            "reduce": {
-              "expressions": [],
-              "type": "and"
-            },
-            "where": {
-              "expressions": [],
-              "type": "and"
-            }
-          },
-          "hide": false,
-          "pluginVersion": "4.4.1",
-          "query": "CarStatus24\n| where $__timeFilter(Timestamp) and PlayerCarIndex== VehicleIndex \n| order by Timestamp desc , SessionTime desc  \n| project Timestamp,RRTyreDamage ",
-          "querySource": "raw",
-          "queryType": "KQL",
-          "rawMode": true,
-          "refId": "D",
+          "refId": "Tyre Damage",
           "resultFormat": "time_series"
         }
       ],
@@ -5019,7 +4613,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 20,
+        "h": 22,
         "w": 24,
         "x": 0,
         "y": 92
@@ -5062,7 +4656,7 @@
           },
           "hide": false,
           "pluginVersion": "4.4.1",
-          "query": "let participant = Participant24\n| where $__timeFilter(Timestamp)\n| partition by VehicleIndex (\n    top 1 by Timestamp desc\n)\n| project VehicleIndex, Name;\nlet tyre = CarStatus24\n| where $__timeFilter(Timestamp)\n| partition by VehicleIndex\n    (\n        top 1 by Timestamp desc\n    )\n| extend Tyre = case(  \n    VisualTyreCompound == 16, \"S\",  \n    VisualTyreCompound == 17, \"M\",  \n    VisualTyreCompound == 18, \"H\",  \n    VisualTyreCompound == 7, \"I\",  \n    VisualTyreCompound == 8, \"W\",  \n    \"unknown\"  \n)\n| project Tyre, VehicleIndex;\nLap24\n| where $__timeFilter(Timestamp) and CarPosition between (1 .. 20)\n| order by Timestamp desc, CarPosition asc\n| take 20\n| join kind=leftouter participant on VehicleIndex\n| join kind=leftouter tyre on VehicleIndex\n| extend \n    IntvTime = totimespan(DeltaToCarInFrontMinutesPart * 1m + DeltaToCarInFrontMSPart * 1ms),\n    LeadTime = totimespan(DeltaToRaceLeaderMinutesPart * 1m + DeltaToRaceLeaderMSPart * 1ms)\n| project CarPosition, Name, Tyre, IntvTime, LeadTime\n| order by CarPosition asc",
+          "query": "let participant = Participant24\n| where $__timeFilter(Timestamp)\n| partition by VehicleIndex (\n    top 1 by Timestamp desc\n)\n| project VehicleIndex, Name;\nlet tyre = CarStatus24\n| where $__timeFilter(Timestamp)\n| partition by VehicleIndex\n    (\n        top 1 by Timestamp desc\n    )\n| extend Tyre = case(  \n    VisualTyreCompound == 16, \"S\",  \n    VisualTyreCompound == 17, \"M\",  \n    VisualTyreCompound == 18, \"H\",  \n    VisualTyreCompound == 7, \"I\",  \n    VisualTyreCompound == 8, \"W\",  \n    \"unknown\"  \n)\n| project Tyre, VehicleIndex;\nLap24\n| where $__timeFilter(Timestamp) and CarPosition between (1 .. 20)\n| order by Timestamp desc\n| partition by CarPosition (top 1 by SessionTime desc)\n| join kind=leftouter participant on VehicleIndex\n| join kind=leftouter tyre on VehicleIndex\n| extend \n    IntvTime = totimespan(DeltaToCarInFrontMinutesPart * 1m + DeltaToCarInFrontMSPart * 1ms),\n    LeadTime = totimespan(DeltaToRaceLeaderMinutesPart * 1m + DeltaToRaceLeaderMSPart * 1ms)\n| project CarPosition, Name, Tyre, IntvTime, LeadTime\n| order by CarPosition asc\n",
           "querySource": "raw",
           "queryType": "KQL",
           "rawMode": true,
@@ -5103,5 +4697,5 @@
   "timezone": "",
   "title": "F1 Dashboard",
   "uid": "qEVSBmL7k",
-  "version": 3
+  "version": 5
 }

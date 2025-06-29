@@ -199,8 +199,6 @@ class PacketSessionData(ctypes.LittleEndianStructure):
 class LapData(ctypes.LittleEndianStructure):
     """
     The lap data packet gives details of all the cars in the session.
-
-    Frequency: Rate as specified in menus
     """
     _pack_ = 1
     _fields_ = [
@@ -248,6 +246,7 @@ class LapData(ctypes.LittleEndianStructure):
 class PacketLapData(ctypes.LittleEndianStructure):
     """
     Ctypes data structure for Lap data for all cars on track
+    Frequency: Rate as specified in menus
     Size: 1285 bytes
     """
     _pack_ = 1
