@@ -2,35 +2,16 @@ import os
 import io
 from azure.kusto.data import KustoConnectionStringBuilder
 from azure.kusto.data.data_format import DataFormat
-from azure.kusto.ingest import (
-    IngestionProperties,
-    KustoStreamingIngestClient,
-    ManagedStreamingIngestClient,
-    IngestionStatus,
-    QueuedIngestClient
-)
+from azure.kusto.ingest import IngestionProperties, KustoStreamingIngestClient
+from azure.identity import DefaultAzureCredential
 
-from dotenv import load_dotenv
 
-load_dotenv()
-# get ADX Azure AD app credentials from env file
 clusterPath = os.getenv("CLUSTER_PATH")
-appId = os.getenv("APP_ID")
-appKey = os.getenv("APP_KEY")
-appTenant = os.getenv("APP_TENANT")
 dbName = os.getenv("DB_NAME")
 
-
-ingest_total=0
-
-csb = KustoConnectionStringBuilder.with_aad_application_key_authentication(
-    clusterPath,
-    appId,
-    appKey,
-    appTenant
-)
-
-client = KustoStreamingIngestClient (csb)#KustoStreamingIngestClient (csb) # ManagedStreamingIngestClient.from_engine_kcsb(csb) #QueuedIngestClient(dmb)
+credential = DefaultAzureCredential()
+csb = KustoConnectionStringBuilder.with_azure_token_credential(clusterPath, credential)
+client = KustoStreamingIngestClient(csb)
 
 ingestionProperties = IngestionProperties(
     database=dbName,
@@ -38,6 +19,8 @@ ingestionProperties = IngestionProperties(
     data_format=DataFormat.CSV
     #,flush_immediately=True
 )
+
+ingest_total=0
 
 def ingest_kusto(t_name, data):
     global ingest_total
@@ -47,7 +30,6 @@ def ingest_kusto(t_name, data):
         res = client.ingest_from_stream(str_stream, ingestion_properties=ingestionProperties)
         ingest_total += 1
         print(ingest_total)
-        #print(res.status)
     except Exception as e:
         print(e)
         pass

@@ -1,0 +1,14 @@
+**/__pycache__/
+.env
+.env_sample
+.git
+.gitignore
+.vscode/
+Dockerfile
+.dockerignore
+LICENSE
+kusto/initialization/
+grafana/
+images/
+README.md
+send-pcap.py
